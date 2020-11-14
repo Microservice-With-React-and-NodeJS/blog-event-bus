@@ -5,10 +5,14 @@ const axios = require("axios");
 const app = express();
 app.use(bodyParser.json());
 
+const events = [];
+
 // impliment the endpoint to watch for incoming events
 app.post("/events", async (req, res) => {
   //whatever comin gin the req is our event, we dont know what is that
   const event = req.body;
+
+  events.push(event);
 
   //make post requests to different servers
   await axios.post("http://localhost:4000/events", event); // posts
@@ -18,6 +22,11 @@ app.post("/events", async (req, res) => {
 
   // anytime anyone tries to send an event we send ok msg
   res.send({ status: "OK" });
+});
+
+// endpoint to get all the events that occured
+app.get("/events", (req, res) => {
+  res.send(events);
 });
 
 // event bus listening port
