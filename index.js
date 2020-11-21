@@ -15,10 +15,10 @@ app.post("/events", (req, res) => {
   events.push(event);
 
   //make post requests to different servers
-  axios.post("http://localhost:4000/events", event); // posts
-  axios.post("http://localhost:4001/events", event); // comments
-  axios.post("http://localhost:4002/events", event); // query service
-  axios.post("http://localhost:4003/events", event); // comment moderation service
+  axios.post("http://posts-clusterip-srv:4000/events", event); // posts
+  // axios.post("http://localhost:4001/events", event); // comments
+  // axios.post("http://localhost:4002/events", event); // query service
+  // axios.post("http://localhost:4003/events", event); // comment moderation service
 
   // anytime anyone tries to send an event we send ok msg
   res.send({ status: "OK" });
